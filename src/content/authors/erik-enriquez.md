@@ -1,10 +1,10 @@
 ---
-title: Jane Doe
+title: Erik Enriquez
 email: janedoe@email.com
 image: "@assets/profile/jane-doe.jpg"
 social:
   github: "https://github.com/"
-  linkedIn: "https://www.linkedin.com/"
+  linkedIn: "https://www.linkedin.com/" 
   email: "janedoe@janedoe.com"
 ---
 
