@@ -1,5 +1,6 @@
 ---
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
+import DestinationsList from "@components/destinations/DestinationsList.astro";
 import { IoSearch } from "react-icons/io5";
 
 const { pathname } = Astro.url;
@@ -10,40 +11,57 @@ const menu = [
   {
     name: "Home",
     url: "/",
+    disabled: false,
   },
   {
     name: "About",
     url: "/about",
+    disabled: false,
   },
   {
     name: "Docs",
     url: "/docs",
+    disabled: false,
   },
   {
     name: "Blog",
     url: "/blog",
+    disabled: false,
   },
   {
     name: "Recipes",
     url: "/recipes",
+    disabled: false,
   },
   {
     name: "Poetry",
     url: "/poetry",
+    disabled: false,
   },
   {
     name: "Index Cards",
     url: "/index-cards",
+    disabled: false,
   },
   {
     name: "Authors",
     url: "/authors",
+    disabled: false,
   },
   {
     name: "Portfolio",
     url: "/portfolio",
+    disabled: false,
+  },
+  {
+    name: "Destinations",
+    url: "#",
+    disabled: true,
   },
 ];
+
+let destinationsLink;
+let destinationsMenu;
 ---
 
 <header
@@ -77,11 +95,12 @@ const menu = [
         menu.map((item) => (
           <li class="">
             <a
-              href={item.url}
+              href={item.disabled ? undefined : item.url}
+              id={`nav-bar-${item.name.toLowerCase()}-link`}
               class={`block p-2 font-secondary font-semibold text-txt-p transition dark:text-darkmode-txt-p lg:px-2 lg:py-3 ${
                 (pathname === `${item.url}/` || pathname === item.url) &&
                 "active"
-              }`}
+              } ${item.disabled ?? "pointer-events-none"}`}
             >
               {item.name}
             </a>
@@ -101,3 +120,13 @@ const menu = [
     </div>
   </nav>
 </header>
+<DestinationsList />
+
+<script is:inline>
+  destinationsLink = document.getElementById("nav-bar-destinations-link");
+
+  destinationsLink.addEventListener("click", () => {
+    destinationsMenu = document.getElementById("destinations-toggle");
+    destinationsMenu.classList.toggle("open");
+  });
+</script>

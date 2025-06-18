@@ -35,3 +35,12 @@ input#nav-toggle:checked + label #hide-button {
 input#nav-toggle:checked ~ #nav-menu {
   @apply block;
 }
+
+// nav bar interactive - pop up menus
+#destinations-toggle {
+  display: none;
+}
+
+#destinations-toggle.open {
+  display: block;
+}

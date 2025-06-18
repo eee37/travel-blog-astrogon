@@ -1,0 +1,50 @@
+---
+import {regions, destinations} from '../../static/destinations'
+
+import Button from "@components/common/Button.astro";
+
+
+interface Location {
+    name: string;
+    url: string;
+}
+
+interface Destination extends Location {
+    flag: string;
+    region: string;
+}
+
+---
+<div class="glass rounded-lg p-4 m-2 mb-4" id="destinations-toggle">
+    <ul>
+        {
+            regions.map((region)=> {
+                return (
+                    <li>
+                        <h4 class="mb-2">
+                            {region.name}
+                        </h4>
+                        <hr class="mb-2 -mt-1" />
+                        <ul>
+                            {
+                                destinations.filter( destination => destination.region === region.name).map(
+                                    filDestination => {
+                                        return (
+                                            <li class="inline-block m-1">
+                                                <Button
+                                                    label={filDestination.name}
+                                                    link=""
+                                                    type="secondary"
+                                                />
+                                            </li>
+                                        )
+                                    }
+                                )
+                            }
+                        </ul>
+                    </li>
+                )
+            })
+        }
+    </ul>
+</div>
