@@ -1,5 +1,6 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { Countries, MajorRegion, SubRegions } from "@/static/constants";
 
 // May also need to update /src/types/index.d.ts when updating this file
 // When updating the set of searchable collections, update collectionList in /src/pages/search.astro
@@ -162,6 +163,24 @@ const terms = defineCollection({
   schema: searchable,
 });
 
+/* ---------------------------------------- DESTINATIONS ---------------------------------------- */
+
+
+
+const destinations = defineCollection({
+  loader: glob({
+    pattern: "**\/[^_]*.{md,mdx}",
+    base: "./src/content/destinations"
+  }),
+  schema: searchable.extend({
+    majorRegion: z.nativeEnum(MajorRegion),
+    subRegions: z.nativeEnum(SubRegions).array(),
+    country: z.nativeEnum(Countries),
+    tags: z.array(z.string()),
+    monthYearOfTravel: z.string().array() // in case traveled on different years
+  })
+});
+
 // Export collections
 export const collections = {
   about,
@@ -174,4 +193,5 @@ export const collections = {
   portfolio,
   recipes,
   terms,
+  destinations
 };
