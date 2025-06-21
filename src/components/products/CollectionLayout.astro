@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import type { ProductsEntry } from "@/types";
+import PageHeader from "@components/common/PageHeader.astro";
+
+
+interface Props {
+    productsIndex: ProductsEntry;
+    products: ProductsEntry[]
+}
+const { productsIndex, products } = Astro.props;
+console.log("productsIndex", productsIndex);
+console.log("products", products);
+
+---
+<BaseLayout title={productsIndex.data.title} description={productsIndex.data.description}>
+  <PageHeader title={productsIndex.data.title} />
+  <section class="section-sm pb-0">
+    <div class="container">
+      <div class="row justify-center">
+        {products.map((entry) => <h1>{entry.data.productName}</h1>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

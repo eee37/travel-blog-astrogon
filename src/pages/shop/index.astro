@@ -1,0 +1,14 @@
+---
+import { getEntries } from "@lib/contentParser";
+import { getIndex } from "@lib/contentParser";
+import type { ProductsEntry } from "@/types";
+import CollectionLayout from "@components/products/CollectionLayout.astro";
+
+const productsIndex = await getIndex("products") as ProductsEntry;
+const products = await getEntries("products") as ProductsEntry[];
+
+---
+<CollectionLayout
+  productsIndex={productsIndex}
+  products={products}
+/>
