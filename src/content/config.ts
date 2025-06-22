@@ -178,7 +178,7 @@ const destinations = defineCollection({
     country: z.nativeEnum(Countries),
     tags: z.array(z.string()),
     monthYearOfTravel: z.string().array(), // in case traveled on different years
-    imageLink: z.string().optional()
+    imageLink: z.string().optional(),
   })
 });
 
@@ -189,14 +189,16 @@ const products = defineCollection({
     pattern: "**\/[^_]*.{md,mdx}",
     base: "./src/content/products"
   }),
-  schema: searchable.extend({
-    productName: z.string().optional(),
-    productPrice: z.number().optional(),
-    productCategory: z.string().optional(),
-    productLink: z.string().optional(),
-    imageLink: z.string().optional(),
-    tags: z.array(z.string()).optional(),
-  })
+  schema: ({ image }) =>
+    searchable.extend({
+      productName: z.string(),
+      productPrice: z.number().optional(),
+      productCategory: z.string(),
+      productLink: z.string().optional(),
+      imageLink: image(),
+      tags: z.array(z.string()).optional(),
+      imageAlt: z.string().default(""),
+    })
 })
 
 

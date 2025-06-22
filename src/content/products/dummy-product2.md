@@ -1,11 +1,11 @@
 ---
 title: "Product Name"
 description: "A brief description of the product."
-productName: "Product Name"
+productName: "Product Name Two"
 productPrice: 0.00
-productCategory: "Product Category"
+productCategory: "Second Product Category"
 tags:
     - tag1
     - tag2
-imageLink: "@assets/profile/john-doe.jpg"
+imageLink: "@assets/profile/jane-doe.jpg"
 ---
