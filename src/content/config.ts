@@ -177,9 +177,30 @@ const destinations = defineCollection({
     subRegions: z.nativeEnum(SubRegions).array(),
     country: z.nativeEnum(Countries),
     tags: z.array(z.string()),
-    monthYearOfTravel: z.string().array() // in case traveled on different years
+    monthYearOfTravel: z.string().array(), // in case traveled on different years
+    imageLink: z.string().optional(),
   })
 });
+
+
+/* ---------------------------------------- PRODUCTS ---------------------------------------- */
+const products = defineCollection({
+  loader: glob({
+    pattern: "**\/[^_]*.{md,mdx}",
+    base: "./src/content/products"
+  }),
+  schema: ({ image }) =>
+    searchable.extend({
+      productName: z.string(),
+      productPrice: z.number().optional(),
+      productCategory: z.string(),
+      productLink: z.string().optional(),
+      imageLink: image(),
+      tags: z.array(z.string()).optional(),
+      imageAlt: z.string().default(""),
+    })
+})
+
 
 // Export collections
 export const collections = {
@@ -193,5 +214,6 @@ export const collections = {
   portfolio,
   recipes,
   terms,
-  destinations
+  destinations,
+  products
 };

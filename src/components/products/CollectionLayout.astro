@@ -1,0 +1,60 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import type { ProductsEntry } from "@/types";
+import PageHeader from "@components/common/PageHeader.astro";
+import ProductCard from "./ProductCard.astro";
+
+interface Props {
+  productsIndex: ProductsEntry;
+  products: ProductsEntry[];
+}
+const { productsIndex, products } = Astro.props;
+
+const productCategoryToProducts = new Map<string, ProductsEntry[]>();
+
+products.forEach((product) => {
+  const category = product.data.productCategory;
+  if (!productCategoryToProducts.has(category)) {
+    productCategoryToProducts.set(category, [product]);
+    return;
+  }
+  productCategoryToProducts.get(category)?.push(product);
+});
+
+console.log("productCategoryToProducts", productCategoryToProducts);
+---
+
+<BaseLayout
+  title={productsIndex.data.title}
+  description={productsIndex.data.description}
+>
+  <PageHeader title={productsIndex.data.title} />
+  <section class="section-sm pb-0">
+    <div class="container">
+      <div class="row justify-center">
+        <ul>
+          {
+            Array.from(productCategoryToProducts.entries()).map(
+              ([category, products]) => (
+                <li class="my-2">
+                    <div class="glass rounded-lg p-4 m-2 mb-4 text-center">
+                        <h3 class="mb-2">{category}</h3>
+                    </div>
+                    <ul>
+                        {products.map((product) => (
+                        <li>
+                            <ProductCard
+                              entry={product}
+                            />
+                        </li>
+                        ))}
+                    </ul>
+                </li>
+              )
+            )
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
