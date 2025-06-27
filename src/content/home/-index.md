@@ -1,8 +1,8 @@
 ---
 image: "@assets/astrogon-star.svg"
 imageAlt: Astrogon logo
-title: Astrogon
-content: A rapidly-customizable template for a blog, documentation, and more.
+title: OOTO
+content: A travel blog for busy people, that makes planning unforgetable adventure travel a breeze
 button:
   label: See the Code
   link: https://github.com/astrogon/astrogon
