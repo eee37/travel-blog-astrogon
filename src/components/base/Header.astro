@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
 import DestinationsList from "@components/destinations/DestinationsList.astro";
 import { IoSearch } from "react-icons/io5";
@@ -35,16 +35,6 @@ const menu = [
     disabled: false,
   },
   {
-    name: "Poetry",
-    url: "/poetry",
-    disabled: false,
-  },
-  {
-    name: "Index Cards",
-    url: "/index-cards",
-    disabled: false,
-  },
-  {
     name: "Authors",
     url: "/authors",
     disabled: false,
@@ -56,8 +46,8 @@ const menu = [
   },
   {
     name: "Destinations",
-    url: "#",
-    disabled: true,
+    url: "/destinations",
+    disabled: false,
   },
   {
     name: "Shop",
@@ -71,7 +61,7 @@ const menu = [
   },
 ];
 
-  let destinationsLink;
+let destinationsLink;
 let destinationsMenu;
 ---
 
@@ -136,7 +126,14 @@ let destinationsMenu;
 <script is:inline>
   destinationsLink = document.getElementById("nav-bar-destinations-link");
 
-  destinationsLink.addEventListener("click", () => {
+  destinationsLink.addEventListener("mouseenter", () => {
+    destinationsMenu = document.getElementById("destinations-toggle");
+    destinationsMenu.classList.toggle("open");
+  });
+
+  destinationsPopUp = document.getElementById("destinations-toggle");
+
+  destinationsPopUp.addEventListener("mouseleave", () => {
     destinationsMenu = document.getElementById("destinations-toggle");
     destinationsMenu.classList.toggle("open");
   });

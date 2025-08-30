@@ -42,10 +42,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        core_blue: "#007FDE",
-        core_green: "#479B84",
-        core_orange: "#F9AE45",
-        core_pale: "#F9AE45",
+        core_blue: "#98B8F1",
+        core_green: "#00886D",
+        core_orange: "#F48921",
+        core_yellow: "#FCCA59",
         txt: {
           p: "#000",
           s: "#222",
