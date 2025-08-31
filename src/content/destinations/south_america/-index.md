@@ -1,6 +1,6 @@
 ---
-title: Peru
-description: Our trip to Peru
+title: South America
+description: Region
 
 majorRegion: Latin America
 subRegions: [South America]

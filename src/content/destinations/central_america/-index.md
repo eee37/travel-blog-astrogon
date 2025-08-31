@@ -1,6 +1,6 @@
 ---
-title: Mexico
-description: Our trip to Mexico
+title: Central America & the Carribean
+description: Region
 
 majorRegion: Latin America
 subRegions: [Central America]

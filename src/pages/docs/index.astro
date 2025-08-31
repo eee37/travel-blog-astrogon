@@ -6,6 +6,8 @@ import { sortByTitle } from "@lib/sortFunctions";
 
 const collectionIndex = (await getIndex("docs")) as DocsEntry;
 const groupIndices = (await getGroups("docs", sortByTitle)) as DocsEntry[];
+console.log("groupIndices", groupIndices);
+console.log("collectionIndex", collectionIndex);
 ---
 
 <CollectionLayout entries={groupIndices} collectionIndex={collectionIndex} />
