@@ -17,16 +17,32 @@ interface Destination extends Location {
     region: string;
 }
 
+interface CountryMenuItem { 
+    contentPath: string;
+    countryName: string;
+}
+
 // populate destinations nav pop up
-const destinationsMd = await getCollection('destinations')
-let regionToDestination = new Map<string, string[]>;
+const destinationsMd = await getCollection('destinations');
+console.log('destinationsMd', destinationsMd);
+let regionToDestination = new Map<string, CountryMenuItem[]>;
 destinationsMd.forEach( destinationMd => {
+    const segments = destinationMd?.id.replace("/-index", "").split("/");
+    if (segments.length === 1) {
+        return // skip if root of region
+    }
     if (!regionToDestination.has(destinationMd.data.majorRegion)) {
-        regionToDestination.set(destinationMd.data.majorRegion, [destinationMd.data.country])
+        regionToDestination.set(destinationMd.data.majorRegion, [{
+            contentPath: destinationMd.id,
+            countryName: destinationMd.data.country
+        }])
         return
     }
     const countryArray = regionToDestination.get(destinationMd.data.majorRegion);
-    countryArray?.push(destinationMd.data.country)
+    countryArray?.push({
+        contentPath: destinationMd.id,
+        countryName: destinationMd.data.country
+    })
 })
 
 ---
@@ -46,8 +62,8 @@ destinationsMd.forEach( destinationMd => {
                                         return (
                                             <li class="inline-block m-1">
                                                 <Button
-                                                    label={country}
-                                                    link=""
+                                                    label={country.countryName}
+                                                    link={`/destinations/${country.contentPath}`}
                                                     type="secondary"
                                                 />
                                             </li>
