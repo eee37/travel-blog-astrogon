@@ -1,6 +1,6 @@
 ---
-title: Canada
-description: Our trip to Canada
+title: North America
+description: Our trip to North America
 
 majorRegion: North America
 subRegions: []

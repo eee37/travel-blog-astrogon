@@ -11,10 +11,9 @@ interface Props {
 
 const { collectionIndex, entries } = Astro.props;
 ---
-
 <BaseLayout
 title={collectionIndex.data.title}
-  image=""
+  image="@/assets/docs/deities/cover.jpg"
   description={collectionIndex.data.description}
 >
   <PageHeader title={collectionIndex.data.title} />

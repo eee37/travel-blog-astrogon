@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title } = entry.data;
+const { title, imageLink } = entry.data;
 ---
 
 <div
@@ -16,21 +16,21 @@ const { title } = entry.data;
   <div class="glass h-full rounded-lg">
     <a
       class="group hover:opacity-100"
-      href={`/docs/${entry.id.replace("/-index", "")}`}
+      href={`/destinations/${entry.id.replace("/-index", "")}`}
     >
       <div class="relative rounded-lg pb-9/16 overflow-hidden">
-        <!-- {
-          image && (
+        {
+          imageLink && (
             <Image
               class="absolute object-cover w-full h-full group-hover:scale-[105%] transition-all duration-300"
-              src={image}
-              alt={imageAlt}
+              src={imageLink}
+              alt={"test"}
               width={1280}
               height={720}
               loading="eager"
             />
           )
-        } -->
+        }
         <div
           class="glass-t absolute text-center rounded-lg px-2 py-1 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
         >
