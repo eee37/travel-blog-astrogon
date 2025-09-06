@@ -130,17 +130,50 @@ let destinationsMenu;
 <DestinationsList />
 
 <script is:inline>
-  destinationsLink = document.getElementById("nav-bar-destinations-link");
+  document.addEventListener("DOMContentLoaded", function () {
+    setupDestinationsMenu();
 
-  destinationsLink.addEventListener("mouseenter", () => {
-    destinationsMenu = document.getElementById("destinations-toggle");
-    destinationsMenu.classList.toggle("open");
+    // Re-attach listeners after Astro View Transitions
+    document.addEventListener("astro:after-swap", function () {
+      setupDestinationsMenu();
+    });
   });
 
-  destinationsPopUp = document.getElementById("destinations-toggle");
+  function setupDestinationsMenu() {
+    const destinationsLink = document.getElementById(
+      "nav-bar-destinations-link",
+    );
+    const destinationsMenu = document.getElementById("destinations-toggle-parent");
 
-  destinationsPopUp.addEventListener("mouseleave", () => {
-    destinationsMenu = document.getElementById("destinations-toggle");
-    destinationsMenu.classList.toggle("open");
-  });
+    if (!destinationsLink || !destinationsMenu) {
+      return;
+    }
+
+    // Close any open menu first
+    destinationsMenu.classList.remove("open");
+
+    let timeoutId;
+
+    function startCloseTimer() {
+      timeoutId = setTimeout(() => {
+        destinationsMenu.classList.remove("open");
+      }, 150);
+    }
+
+    // Open menu when hovering over the link
+    destinationsLink.addEventListener("mouseenter", () => {
+      clearTimeout(timeoutId);
+      destinationsMenu.classList.add("open");
+    });
+
+    // Open menu when hovering over the menu itself
+    destinationsMenu.addEventListener("mouseenter", () => {
+      clearTimeout(timeoutId);
+      destinationsMenu.classList.add("open");
+    });
+
+    // Start close timer when leaving either element
+    destinationsLink.addEventListener("mouseleave", startCloseTimer);
+    destinationsMenu.addEventListener("mouseleave", startCloseTimer);
+  }
 </script>

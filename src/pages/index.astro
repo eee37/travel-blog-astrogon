@@ -9,31 +9,16 @@ const entry = (await getIndex("home")) as HomeEntry;
 <EntryLayout entry={entry} />
 
 <style>
-  html::before {
-    background-image: url(src/assets/backgrounds/homepage_background_horizontal.svg);
-    opacity: 1;
-  }
-
-  html.dark::before {
-    opacity: 0;
-  }
-
-  html::after {
-    background-image: url(/src/assets/backgrounds/bwca-night.png);
-    opacity: 0;
-  }
-
-  html.dark::after {
-    opacity: 1;
+  html::before  {
+    background-image: url(/src/assets/backgrounds/homepage_background_horizontal.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   @media (max-width: 640px) {
     html::before {
-      background-image: url(/src/assets/backgrounds/homepage_background_vertical.svg);
-    }
-    html::after {
-      background-image: url(/src/assets/backgrounds/homepage_background_vertical.svg);
+      background-image: url(/src/assets/backgrounds/homepage_background_vertical.png);
     }
   }
-
 </style>

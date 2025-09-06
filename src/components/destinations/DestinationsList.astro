@@ -2,78 +2,79 @@
 /*
     Used to generate the destinations pop up after clicking nav bar
 */
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
 import Button from "@components/common/Button.astro";
 
-
 interface Location {
-    name: string;
-    url: string;
+  name: string;
+  url: string;
 }
 
 interface Destination extends Location {
-    flag: string;
-    region: string;
+  flag: string;
+  region: string;
 }
 
-interface CountryMenuItem { 
-    contentPath: string;
-    countryName: string;
+interface CountryMenuItem {
+  contentPath: string;
+  countryName: string;
 }
 
 // populate destinations nav pop up
-const destinationsMd = await getCollection('destinations');
-let regionToDestination = new Map<string, CountryMenuItem[]>;
-destinationsMd.forEach( destinationMd => {
-    const segments = destinationMd?.id.replace("/-index", "").split("/");
-    if (segments.length === 1) {
-        return // skip if root of region
-    }
-    if (!regionToDestination.has(destinationMd.data.majorRegion)) {
-        regionToDestination.set(destinationMd.data.majorRegion, [{
-            contentPath: destinationMd.id,
-            countryName: destinationMd.data.country
-        }])
-        return
-    }
-    const countryArray = regionToDestination.get(destinationMd.data.majorRegion);
-    countryArray?.push({
+const destinationsMd = await getCollection("destinations");
+let regionToDestination = new Map<string, CountryMenuItem[]>();
+destinationsMd.forEach((destinationMd) => {
+  const segments = destinationMd?.id.replace("/-index", "").split("/");
+  if (segments.length === 1) {
+    return; // skip if root of region
+  }
+  if (!regionToDestination.has(destinationMd.data.majorRegion)) {
+    regionToDestination.set(destinationMd.data.majorRegion, [
+      {
         contentPath: destinationMd.id,
-        countryName: destinationMd.data.country
-    })
-})
-
+        countryName: destinationMd.data.country,
+      },
+    ]);
+    return;
+  }
+  const countryArray = regionToDestination.get(destinationMd.data.majorRegion);
+  countryArray?.push({
+    contentPath: destinationMd.id,
+    countryName: destinationMd.data.country,
+  });
+});
 ---
-<div class="glass rounded-lg p-4 m-2 mb-4 sticky" id="destinations-toggle">
+
+<div id="destinations-toggle-parent" class="container glass rounded-lg p-4 m-2 mb-4 sticky">
+  <div
+    class="rounded-lg p-4 m-2 mb-4"
+    id="destinations-toggle"
+  >
     <ul>
-        {
-            Array.from(regionToDestination.entries()).map( ([regionName, countries]) => (
-                    <li>
-                        <h4 class="mb-2">
-                            {regionName}
-                        </h4>
-                        <hr class="mb-2 -mt-1" />
-                        <ul>
-                            {
-                                countries.map(
-                                    country => {
-                                        return (
-                                            <li class="inline-block m-1">
-                                                <Button
-                                                    label={country.countryName}
-                                                    link={`/destinations/${country.contentPath}`}
-                                                    type="secondary"
-                                                />
-                                            </li>
-                                        )
-                                    }
-                                )
-                            }
-                        </ul>
+      {
+        Array.from(regionToDestination.entries()).map(
+          ([regionName, countries]) => (
+            <li class="pb-4">
+              <h4 class="mb-2">{regionName}</h4>
+              <hr class="mb-2 -mt-1" />
+              <ul>
+                {countries.map((country) => {
+                  return (
+                    <li class="inline-block m-1">
+                      <Button
+                        label={country.countryName}
+                        link={`/destinations/${country.contentPath}`}
+                        type="secondary"
+                      />
                     </li>
-                )
-            )
-        }
+                  );
+                })}
+              </ul>
+            </li>
+          ),
+        )
+      }
     </ul>
+  </div>
 </div>
