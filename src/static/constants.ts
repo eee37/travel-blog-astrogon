@@ -19,7 +19,8 @@ enum EuropeRegions {
 enum LatinAmericaRegions {
     ANDES = "Andes",
     CENTRAL_AMERICA = "Central America",
-    SOUTH_AMERICA = "South America"
+    SOUTH_AMERICA = "South America",
+    CARRIBEAN = "Carribean"
 
 }
 
@@ -37,5 +38,6 @@ export enum Countries {
     ITALY = 'Italy',
     MEXICO = 'Mexico',
     PERU = 'Peru',
-    SPAIN = 'Spain'
+    SPAIN = 'Spain',
+    GREECE = 'Greece'
 }
